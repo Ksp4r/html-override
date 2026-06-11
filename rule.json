@@ -1,0 +1,9 @@
+{
+  "name": "Youtube-Sub-Fix",
+  "author": "Ksp4r",
+  "selector": ".*youtube.*/subscriptions",
+  "onLoad": true,
+  "code": {
+    "js":"js/youtube.js"
+  }
+}
