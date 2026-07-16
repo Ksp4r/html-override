@@ -4,10 +4,10 @@
     "selector": ".*youtube.*/subscriptions",
     "onLoad": true,
     "code": {
-      "js":"js/youtube.js"
+        "js":"js/youtube.js"
     }
-  },
-  {
+},
+{
     "name":"Upload-Haven",
     "author":"Ksp4r",
     "selector": ".*uploadhaven.*/downloads",
@@ -15,4 +15,4 @@
     "code":{
       "js":"js/UploadHaven.js"
     }
-  }]
+}]
