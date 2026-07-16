@@ -11,7 +11,7 @@
   {
     "name":"Upload-Haven",
     "author":"Ksp4r",
-    "selector": ".*uploadhaven.com/downloads/*",
+    "selector": ".*uploadhaven.*/downloads",
     "onLoad":true,
     "code":{
       "js":"js/UploadHaven.js"
