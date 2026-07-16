@@ -1,7 +1,12 @@
-{
-    "selector": ".*youtube.*/subscriptions",
-    "onLoad": true,
-    "code": {
-        "js":"js/youtube.js"
+[
+    {
+        "selector": ".*youtube.*/subscriptions",
+        "onLoad": true,
+        "code": {"js":"js/youtube.js"}
+    },
+    {
+        "selector":".*uploadhaven.*/downloads", 
+        "onLoad":true, 
+        "code":{"js":"js/UploadHaven.js"}
     }
-}
+]
