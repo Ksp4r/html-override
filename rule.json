@@ -1,15 +1,18 @@
-[{
-  "selector": ".*youtube.*/subscriptions",
-  "onLoad": true,
-  "code": {
-    "js":"js/youtube.js",
-    "files":[]
+[
+  {
+    "name":"Youtube-Filter",
+    "author":"Ksp4r",
+    "selector": ".*youtube.*/subscriptions",
+    "onLoad": true,
+    "code": {
+      "js":"js/youtube.js"
+    }
+  },
+  {
+    "selector": ".*uploadhaven.com/downloads/*",
+    "onLoad":true,
+    "code":{
+      "js":"js/UploadHaven.js"
+    }
   }
-},
-{
-  "selector": ".*uploadhaven.com/downloads/*",
-  "onLoad":true,
-  "code":{
-    "js":"js/UploadHaven.js"
-  }
-}]
+]
