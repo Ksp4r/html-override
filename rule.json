@@ -1,15 +1,12 @@
 [{
-  "name": "Youtube-Sub-Filter",
-  "author": "Ksp4r",
   "selector": ".*youtube.*/subscriptions",
   "onLoad": true,
   "code": {
-    "js":"js/youtube.js"
+    "js":"js/youtube.js",
+    "files":[]
   }
 },
 {
-  "name":"Upload-Haven",
-  "author": "Ksp4r",
   "selector": ".*uploadhaven.com/downloads/*",
   "onLoad":true,
   "code":{
