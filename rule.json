@@ -1,4 +1,4 @@
-[{
+{
     "name":"Youtube-Filter",
     "author":"Ksp4r",
     "selector": ".*youtube.*/subscriptions",
@@ -15,4 +15,4 @@
     "code":{
       "js":"js/UploadHaven.js"
     }
-}]
+}
