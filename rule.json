@@ -9,6 +9,8 @@
     }
   },
   {
+    "name":"Upload-Haven",
+    "author":"Ksp4r",
     "selector": ".*uploadhaven.com/downloads/*",
     "onLoad":true,
     "code":{
