@@ -1,3 +1,3 @@
 setTimeout(()=>{
 	document.querySelector('form').submit();
-}, 4000);
+}, 5000);
