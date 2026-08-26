@@ -16,6 +16,6 @@ u.searchParams.set('auto','true');
 const a=document.createElement('a');
 a.classList.add('auto-link');
 a.href=u.href;
-a.textContent = document.title;
+a.textContent = `(${document.querySelector(".su-hchip--size").textContent}) ${document.querySelector(".su-hero__title").textContent}`;
 Object.assign(a.style,{position:'fixed',top:'10px',left:'10px',zIndex:99999,padding:'10px',background:'#fff',color:'#00e',border:'2px solid #888',borderRadius:'6px',font:'14px sans-serif'});
 document.body.append(a);
