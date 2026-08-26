@@ -1,7 +1,7 @@
 const style = document.createElement('style');
 style.textContent = `
 .auto-link{
-    color: white !important;
+    color: lightgrey !important;
     font-size: 0.5rem !important;
 }
 .auto-link::before{
