@@ -10,12 +10,12 @@ const style = document.createElement('style');style.textContent = `
 .steam-link{
     font-size: 1.5rem !important;
 }
-.steam-frame{
-    display:none;
-    width: 230px;
+.steam-link:before{
+    content:'Steam: ';
 }
-.show{
-    display:block;
+.steam-frame{
+    width: 230px;
+    height:100vh;
 }
 .auto-link{
     color: lightgrey !important;
@@ -37,11 +37,9 @@ const a = document.createElement('a');
 a.classList.add('link', 'auto-link');
 a.href=u.href;
 a.textContent = `(${document.querySelector(".su-hchip--size").textContent}) ${document.querySelector(".su-hero__title").textContent}`;
-const i = document.createElement('iframe');
-i.classList.add('steam-frame');
-i.src = `https://store.steampowered.com/search?term=${encodeURIComponent(document.title.split(" Free Download")[0])}`;
 const b = document.createElement('button');
 b.classList.add('link', 'steam-link');
-b.onclick = ()=>{i.classList.toggle('show');}
-b.textContent = "Steam Page";
-container.append(a, b, i);
+b.onclick = ()=>{
+    window.open(`https://store.steampowered.com/search?term=${encodeURIComponent(document.title.split(" Free Download")[0])}`, "_blank");
+}
+container.append(a, b);
