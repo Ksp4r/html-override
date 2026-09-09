@@ -44,4 +44,4 @@ const b = document.createElement('button');
 b.classList.add('link', 'steam-link');
 b.onclick = ()=>{i.classList.toggle('show');}
 b.textContent = "Steam Page";
-container.append(a, b);
+container.append(a, b, i);
