@@ -39,7 +39,7 @@ a.href=u.href;
 a.textContent = `(${document.querySelector(".su-hchip--size").textContent}) ${document.querySelector(".su-hero__title").textContent}`;
 const i = document.createElement('iframe');
 i.classList.add('steam-frame');
-i.href = `https://store.steampowered.com/search?term=${encodeURIComponent(document.title.split(" Free Download")[0])}`;
+i.src = `https://store.steampowered.com/search?term=${encodeURIComponent(document.title.split(" Free Download")[0])}`;
 const b = document.createElement('button');
 b.classList.add('link', 'steam-link');
 b.onclick = ()=>{i.classList.toggle('show');}
