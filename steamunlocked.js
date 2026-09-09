@@ -31,7 +31,7 @@ document.head.append(style);
 const u=new URL(location.href);
 u.searchParams.set('auto','true');
 const container = document.createElement('div');
-Object.assign(container.style, {display:'flex', 'flex-flow':'column', position:'fixed', top:'10px', left:'10px', zIndex:99999, font:'14px sans-serif'});
+Object.assign(container.style, {display:'flex', 'flex-flow':'column', gap:'3px', position:'fixed', top:'10px', left:'10px', zIndex:99999, font:'14px sans-serif'});
 document.body.append(container);
 const a = document.createElement('a');
 a.classList.add('link', 'auto-link');
