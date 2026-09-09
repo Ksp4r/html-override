@@ -12,7 +12,7 @@ const style = document.createElement('style');style.textContent = `
 }
 .steam-frame{
     display:none;
-    width: 150px;
+    width: 230px;
 }
 .show{
     display:block;
