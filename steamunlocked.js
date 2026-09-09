@@ -33,7 +33,7 @@ a.href=u.href;
 a.textContent = `(${document.querySelector(".su-hchip--size").textContent}) ${document.querySelector(".su-hero__title").textContent}`;
 const b = document.createElement('a');
 b.classList.add('link', 'steam-link');
-b.href = `www.steam.storepowered.com/search?term=${encodeURIComponent(document.title.split(" Free Download")[0])}`;
+b.href = `https://store.steampowered.com/search?term=${encodeURIComponent(document.title.split(" Free Download")[0])}`;
 b.setAttribute('target','_blank');
 b.textContent = "Steam Page";
 container.append(a, b);
