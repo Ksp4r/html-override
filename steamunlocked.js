@@ -26,7 +26,7 @@ a.textContent = `(${document.querySelector(".su-hchip--size").textContent}) ${do
 Object.assign(a.style,{padding:'10px',background:'#fff',color:'#00e',border:'2px solid #888',borderRadius:'6px',font:'14px sans-serif'});
 const b = document.createElement('a');
 b.classList.add('steam-link');
-b.href = `www.steam.storepowered.com/search?term=${URIEncode(document.title.split(" Free Download")[0])}`;
+b.href = `www.steam.storepowered.com/search?term=${encodeURIComponent(document.title.split(" Free Download")[0])}`;
 b.setAttribute('target','_blank');
 b.textContent = "Steam Page";
 container.append(a, b);
