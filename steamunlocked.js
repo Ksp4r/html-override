@@ -1,5 +1,4 @@
-const style = document.createElement('style');
-style.textContent = `
+const style = document.createElement('style');style.textContent = `
 .link{
     padding:10px;
     background:#fff;
@@ -10,6 +9,13 @@ style.textContent = `
 }
 .steam-link{
     font-size: 1.5rem !important;
+}
+.steam-frame{
+    display:none;
+    width: 150px;
+}
+.show{
+    display:block;
 }
 .auto-link{
     color: lightgrey !important;
@@ -31,9 +37,11 @@ const a = document.createElement('a');
 a.classList.add('link', 'auto-link');
 a.href=u.href;
 a.textContent = `(${document.querySelector(".su-hchip--size").textContent}) ${document.querySelector(".su-hero__title").textContent}`;
-const b = document.createElement('a');
+const i = document.createElement('iframe');
+i.classList.add('steam-frame');
+i.href = `https://store.steampowered.com/search?term=${encodeURIComponent(document.title.splie(" Free Download")[0])}`;
+const b = document.createElement('button');
 b.classList.add('link', 'steam-link');
-b.href = `https://store.steampowered.com/search?term=${encodeURIComponent(document.title.split(" Free Download")[0])}`;
-b.setAttribute('target','_blank');
+b.onclick = ()=>{i.classList.toggle('show');}
 b.textContent = "Steam Page";
 container.append(a, b);
