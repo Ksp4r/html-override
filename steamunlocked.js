@@ -80,6 +80,7 @@ for (const cat of ['dev','publisher','release','genres','price']){
     b.append(b[cat]);
 }
 b.publisher.classList.add('steam-pub');
+b.genres.classList.add('steam-list');
 b.price.classList.add('steam-price');
 b.render = ()=>{
     b.image.src = appData['capsule_imagev5'];
