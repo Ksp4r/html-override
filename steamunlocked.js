@@ -7,27 +7,52 @@ const style = document.createElement('style');style.textContent = `
     border-radius: 6px;
     font: 14px sans-serif;
 }
+.steam-frame{
+    display:flex;
+    flex-flow:column;
+    border: 2px solid gray;
+    padding: 5px;
+    border-radius: 6px;
+    width: 230px;
+    height:fit-content;
+    color: white;
+    background:#1b2838;
+}
 .steam-link{
-    font-size: 1.5rem !important;
+    cursor: pointer;
+}
+.steam-link:hover{
+    color: #b0e015;
 }
 .steam-link:before{
-    content:'Steam: ';
+    content:'app ID: ';
+    color: grey;
 }
-.steam-frame{
-    width: 230px;
-    height:100vh;
+.steam-pub{
+    color: grey;
+}
+.steam-price{
+    color:#b0e015;
+}
+.steam-price:before{
+    content: var(--initial);
+    padding-right: 0.5em;
+    color: grey;
+    text-decoration: line-through;
 }
 .auto-link{
-    color: lightgrey !important;
-    font-size: 0.5rem !important;
-}
-.auto-link::before{
-    content:"Download me Daddy-o!";
-    display:block;
     color: blue !important;
     font-size: 1.5rem !important;
+}
+.auto-link::after{
+    content:"Prepare to Board, Matey!";
+    display:block;
+    color: grey !important;
+    font-size: 1rem !important;
 }`;
 document.head.append(style);
+const title = encodeURIComponent(document.title.split(" Free Download")[0]);
+var appData;
 const u=new URL(location.href);
 u.searchParams.set('auto','true');
 const container = document.createElement('div');
@@ -37,9 +62,71 @@ const a = document.createElement('a');
 a.classList.add('link', 'auto-link');
 a.href=u.href;
 a.textContent = `(${document.querySelector(".su-hchip--size").textContent}) ${document.querySelector(".su-hero__title").textContent}`;
-const b = document.createElement('button');
-b.classList.add('link', 'steam-link');
-b.onclick = ()=>{
-    window.open(`https://store.steampowered.com/search?term=${encodeURIComponent(document.title.split(" Free Download")[0])}`, "_blank");
+const b = document.createElement('div');
+b.classList.add('steam-frame');
+b.image = document.createElement('img');
+b.appid = document.createElement('h3');
+b.appid.classList.add('steam-link');
+b.appid.onclick = ()=>{
+    window.open(`https://store.steampowered.com/app/${b.appid.textContent}/`);
+}
+b.append(b.appid, b.image);
+for (const cat of ['dev','publisher','release','price']){
+    b[cat] = document.createElement('p');
+    b.append(b[cat]);
+}
+b.publisher.classList.add('steam-pub');
+b.price.classList.add('steam-price');
+b.render = ()=>{
+    b.image.src = appData['capsule_imagev5'];
+    b.appid.textContent = appData['steam_appid'];
+    b.dev.textContent = appData['developers'].join(', ');
+    b.publisher.textContent = appData['publishers'].join(', ');
+    b.release.textContent = appData['release_date']['date'];
+    b.price.style.setProperty('--initial',`"${appData['price_overview']['initial_formatted']} "`);
+    b.price.textContent = appData['price_overview']['final_formatted'];
 }
 container.append(a, b);
+let steamWin = false, win;
+const channel = new BroadcastChannel('kspar-steam');
+channel.onmessage = event =>{
+    if (win?.closed) win = undefined;
+    if (win){
+        if (event.data.type == 'steam-ping') {
+            console.log('ping recieved, Sending response');
+            channel.postMessage({type:'ping-response'});
+        }
+        else if (event.data.type == 'kspar-query'){
+            console.log('request recieved, querying...');
+            win.postMessage({type:'kspar-query', title:event.data.title}, "*");
+        }
+    }
+    else if (!steamWin && event.data.type == 'ping-response'){
+        console.log('ping response recieved, requesting...');
+        channel.postMessage({type:'kspar-query',title:title});
+        steamWin = true;
+    }
+    else if (event.data.type == title){
+        appData = event.data.appData;
+        b.render();
+    }
+};
+channel.postMessage({type:'steam-ping'});
+setTimeout(()=>{
+    if (!steamWin){
+        window.addEventListener('message', (event)=>{
+            if (event.data.type == 'query-ready'){
+                win.postMessage({type:'kspar-query', title:title}, "*");
+            }
+            if (event.data.type == 'query-result'){
+                console.log('query result recieved, posting...');
+                channel.postMessage({type:event.data.title, appData:event.data.appData});
+                if (event.data.title == title){
+                    appData = event.data.appData;
+                    b.render();
+                }
+            }
+        });
+        win = window.open(`https://store.steampowered.com?kspar=steam_query`);
+    }
+}, 100);
