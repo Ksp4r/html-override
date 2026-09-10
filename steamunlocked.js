@@ -31,6 +31,10 @@ const style = document.createElement('style');style.textContent = `
 .steam-pub{
     color: grey;
 }
+.steam-list{
+    white-space:break-spaces;
+    color: lightskyblue;
+}
 .steam-price{
     color:#b0e015;
 }
