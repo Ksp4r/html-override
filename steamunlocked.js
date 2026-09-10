@@ -75,7 +75,7 @@ b.appid.onclick = ()=>{
     window.open(`https://store.steampowered.com/app/${b.appid.textContent}/`);
 }
 b.append(b.appid, b.image);
-for (const cat of ['dev','publisher','release','genres','price']){
+for (const cat of ['dev','publisher','release','price','genres']){
     b[cat] = document.createElement('p');
     b.append(b[cat]);
 }
