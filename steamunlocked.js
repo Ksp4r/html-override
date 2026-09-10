@@ -71,7 +71,7 @@ b.appid.onclick = ()=>{
     window.open(`https://store.steampowered.com/app/${b.appid.textContent}/`);
 }
 b.append(b.appid, b.image);
-for (const cat of ['dev','publisher','release','price']){
+for (const cat of ['dev','publisher','release','genres','price']){
     b[cat] = document.createElement('p');
     b.append(b[cat]);
 }
@@ -83,6 +83,7 @@ b.render = ()=>{
     b.dev.textContent = appData['developers'].join(', ');
     b.publisher.textContent = appData['publishers'].join(', ');
     b.release.textContent = appData['release_date']['date'];
+    b.genres.textContent = appData['categories'].map(c => c.description).join('\n');
     b.price.style.setProperty('--initial',`"${appData['price_overview']['initial_formatted']} "`);
     b.price.textContent = appData['price_overview']['final_formatted'];
 }
