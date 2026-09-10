@@ -109,6 +109,7 @@ channel.onmessage = event =>{
     else if (event.data.type == title){
         appData = event.data.appData;
         b.render();
+        channel.onmessage = ()=>{};
     }
 };
 channel.postMessage({type:'steam-ping'});
