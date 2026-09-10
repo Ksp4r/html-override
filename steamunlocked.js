@@ -128,5 +128,6 @@ setTimeout(()=>{
             }
         });
         win = window.open(`https://store.steampowered.com?kspar=steam_query`);
+        window.beforeunload = ()=>{win.close();};
     }
 }, 100);
