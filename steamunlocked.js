@@ -31,8 +31,7 @@ const style = document.createElement('style');style.textContent = `
 .steam-pub{
     color: grey;
 }
-.steam-list{
-    white-space:break-spaces;
+.steam-desc{
     color: lightskyblue;
 }
 .steam-price{
@@ -75,12 +74,12 @@ b.appid.onclick = ()=>{
     window.open(`https://store.steampowered.com/app/${b.appid.textContent}/`);
 }
 b.append(b.appid, b.image);
-for (const cat of ['dev','publisher','release','price','genres']){
+for (const cat of ['dev','publisher','release','price','desc']){
     b[cat] = document.createElement('p');
     b.append(b[cat]);
 }
 b.publisher.classList.add('steam-pub');
-b.genres.classList.add('steam-list');
+b.desc.classList.add('steam-desc');
 b.price.classList.add('steam-price');
 b.render = ()=>{
     b.image.src = appData['capsule_imagev5'];
@@ -88,7 +87,7 @@ b.render = ()=>{
     b.dev.textContent = appData['developers'].join(', ');
     b.publisher.textContent = appData['publishers'].join(', ');
     b.release.textContent = appData['release_date']['date'];
-    b.genres.textContent = appData['categories'].map(c => c.description).join('\n');
+    b.desc.textContent = appData.short_description;
     b.price.style.setProperty('--initial',`"${appData['price_overview']['initial_formatted']} "`);
     b.price.textContent = appData['price_overview']['final_formatted'];
 }
