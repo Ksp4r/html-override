@@ -54,44 +54,48 @@ const style = document.createElement('style');style.textContent = `
     font-size: 1rem !important;
 }`;
 document.head.append(style);
-const title = encodeURIComponent(document.title.split(" Free Download")[0]);
-var appData;
-const u=new URL(location.href);
-u.searchParams.set('auto','true');
-const container = document.createElement('div');
-Object.assign(container.style, {display:'flex', 'flex-flow':'column', gap:'3px', position:'fixed', top:'10px', left:'10px', zIndex:99999, font:'14px sans-serif'});
-document.body.append(container);
-const a = document.createElement('a');
-a.classList.add('link', 'auto-link');
-a.href=u.href;
-a.textContent = `(${document.querySelector(".su-hchip--size").textContent}) ${document.querySelector(".su-hero__title").textContent}`;
-const b = document.createElement('div');
-b.classList.add('steam-frame');
-b.image = document.createElement('img');
-b.appid = document.createElement('h3');
-b.appid.classList.add('steam-link');
-b.appid.onclick = ()=>{
-    window.open(`https://store.steampowered.com/app/${b.appid.textContent}/`);
+const mode = document.title.includes("Free Download")? "download" : "silent";
+if (mode == 'download'){
+    const title = encodeURIComponent(document.title.split(" Free Download")[0]);
+    
+    var appData;
+    const u=new URL(location.href);
+    u.searchParams.set('auto','true');
+    const container = document.createElement('div');
+    Object.assign(container.style, {display:'flex', 'flex-flow':'column', gap:'3px', position:'fixed', top:'10px', left:'10px', zIndex:99999, font:'14px sans-serif'});
+    document.body.append(container);
+    const a = document.createElement('a');
+    a.classList.add('link', 'auto-link');
+    a.href=u.href;
+    a.textContent = `(${document.querySelector(".su-hchip--size").textContent}) ${document.querySelector(".su-hero__title").textContent}`;
+    const b = document.createElement('div');
+    b.classList.add('steam-frame');
+    b.image = document.createElement('img');
+    b.appid = document.createElement('h3');
+    b.appid.classList.add('steam-link');
+    b.appid.onclick = ()=>{
+        window.open(`https://store.steampowered.com/app/${b.appid.textContent}/`);
+    }
+    b.append(b.appid, b.image);
+    for (const cat of ['dev','publisher','release','price','desc']){
+        b[cat] = document.createElement('p');
+        b.append(b[cat]);
+    }
+    b.publisher.classList.add('steam-pub');
+    b.desc.classList.add('steam-desc');
+    b.price.classList.add('steam-price');
+    b.render = ()=>{
+        b.image.src = appData['capsule_imagev5'];
+        b.appid.textContent = appData['steam_appid'];
+        b.dev.textContent = appData['developers'].join(', ');
+        b.publisher.textContent = appData['publishers'].join(', ');
+        b.release.textContent = appData['release_date']['date'];
+        b.desc.textContent = appData.short_description;
+        b.price.style.setProperty('--initial',`"${appData['price_overview']['initial_formatted']} "`);
+        b.price.textContent = appData['price_overview']['final_formatted'];
+    }
+    container.append(a, b);
 }
-b.append(b.appid, b.image);
-for (const cat of ['dev','publisher','release','price','desc']){
-    b[cat] = document.createElement('p');
-    b.append(b[cat]);
-}
-b.publisher.classList.add('steam-pub');
-b.desc.classList.add('steam-desc');
-b.price.classList.add('steam-price');
-b.render = ()=>{
-    b.image.src = appData['capsule_imagev5'];
-    b.appid.textContent = appData['steam_appid'];
-    b.dev.textContent = appData['developers'].join(', ');
-    b.publisher.textContent = appData['publishers'].join(', ');
-    b.release.textContent = appData['release_date']['date'];
-    b.desc.textContent = appData.short_description;
-    b.price.style.setProperty('--initial',`"${appData['price_overview']['initial_formatted']} "`);
-    b.price.textContent = appData['price_overview']['final_formatted'];
-}
-container.append(a, b);
 let steamWin = false, win;
 const channel = new BroadcastChannel('kspar-steam');
 channel.onmessage = event =>{
@@ -121,7 +125,7 @@ channel.postMessage({type:'steam-ping'});
 setTimeout(()=>{
     if (!steamWin){
         window.addEventListener('message', (event)=>{
-            if (event.data.type == 'query-ready'){
+            if (mode == "download" && event.data.type == 'query-ready'){
                 win.postMessage({type:'kspar-query', title:title}, "*");
             }
             if (event.data.type == 'query-result'){
