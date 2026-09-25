@@ -55,20 +55,20 @@ const style = document.createElement('style');style.textContent = `
 }`;
 document.head.append(style);
 const mode = document.title.includes("Free Download")? "download" : "silent";
+const title = encodeURIComponent(document.title.split(" Free Download")[0]);
+const container = document.createElement('div');
+const a = document.createElement('a');
+const b = document.createElement('div');
+const u=new URL(location.href);
+var appData;
+
 if (mode == 'download'){
-    const title = encodeURIComponent(document.title.split(" Free Download")[0]);
-    
-    var appData;
-    const u=new URL(location.href);
     u.searchParams.set('auto','true');
-    const container = document.createElement('div');
     Object.assign(container.style, {display:'flex', 'flex-flow':'column', gap:'3px', position:'fixed', top:'10px', left:'10px', zIndex:99999, font:'14px sans-serif'});
     document.body.append(container);
-    const a = document.createElement('a');
     a.classList.add('link', 'auto-link');
     a.href=u.href;
     a.textContent = `(${document.querySelector(".su-hchip--size").textContent}) ${document.querySelector(".su-hero__title").textContent}`;
-    const b = document.createElement('div');
     b.classList.add('steam-frame');
     b.image = document.createElement('img');
     b.appid = document.createElement('h3');
@@ -106,12 +106,12 @@ channel.onmessage = event =>{
             channel.postMessage({type:'ping-response'});
         }
         else if (event.data.type == 'kspar-query'){
-            console.log('request recieved, querying...');
+            console.log(`request "${event.data.title}" recieved, querying...`);
             win.postMessage({type:'kspar-query', title:event.data.title}, "*");
         }
     }
     else if (!steamWin && event.data.type == 'ping-response'){
-        console.log('ping response recieved, requesting...');
+        console.log(`ping response recieved, requesting "${title}"`);
         channel.postMessage({type:'kspar-query',title:title});
         steamWin = true;
     }
@@ -129,7 +129,7 @@ setTimeout(()=>{
                 win.postMessage({type:'kspar-query', title:title}, "*");
             }
             if (event.data.type == 'query-result'){
-                console.log('query result recieved, posting...');
+                console.log(`query result "${event.data.title}" recieved, posting...`);
                 channel.postMessage({type:event.data.title, appData:event.data.appData});
                 if (event.data.title == title){
                     appData = event.data.appData;
