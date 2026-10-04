@@ -85,6 +85,7 @@ if (mode == 'download'){
     b.desc.classList.add('steam-desc');
     b.price.classList.add('steam-price');
     b.render = ()=>{
+        a.textContent = `(${document.querySelector(".su-hchip--size").textContent}) ${appData['name']}`;
         b.image.src = appData['capsule_imagev5'];
         b.appid.textContent = appData['steam_appid'];
         b.dev.textContent = appData['developers'].join(', ');
