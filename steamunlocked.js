@@ -46,6 +46,7 @@ const style = document.createElement('style');style.textContent = `
 .auto-link{
     color: blue !important;
     font-size: 1.5rem !important;
+    max-width:230px;
 }
 .auto-link::after{
     content:"Prepare to Board, Matey!";
