@@ -92,7 +92,7 @@ if (mode == 'download'){
         b.dev.textContent = appData['developers'].join(', ');
         b.publisher.textContent = appData['publishers'].join(', ');
         b.release.textContent = appData['release_date']['date'];
-        b.desc.textContent = decodeURI(appData.short_description);
+        b.desc.innerHTML = decodeURI(appData.short_description);
         b.price.style.setProperty('--initial',`"${appData['price_overview']['initial_formatted']} "`);
         b.price.textContent = appData['price_overview']['final_formatted'];
     }
