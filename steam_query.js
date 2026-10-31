@@ -34,5 +34,5 @@ window.addEventListener('message', async(event)=>{
         console.log('app: ', app);
     }
 });
-window.addEventListener('afterload', ()=>{window.opener.focus()});
+window.addEventListener('load', ()=>{window.opener.focus()});
 window.opener.postMessage({type:'query-ready'}, "*");
