@@ -142,6 +142,7 @@ setTimeout(()=>{
         win = window.open(`https://store.steampowered.com?kspar=steam_query`);
         const b = document.createElement('base');
         b.setAttribute('target','_blank');
+        document.head.append(b);
         window.addEventListener('beforeunload', ()=>{win.close();});
     }
 }, 100);
