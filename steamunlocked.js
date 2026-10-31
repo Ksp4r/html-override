@@ -140,6 +140,8 @@ setTimeout(()=>{
             }
         });
         win = window.open(`https://store.steampowered.com?kspar=steam_query`);
-        window.beforeunload = ()=>{win.close();};
+        const b = document.createElement('base');
+        b.setAttribute('target','_blank');
+        window.addEventListener('beforeunload', ()=>{win.close();});
     }
 }, 100);
